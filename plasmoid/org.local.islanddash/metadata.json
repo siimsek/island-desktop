@@ -1,0 +1,13 @@
+{
+  "KPlugin": {
+    "Id": "org.local.islanddash",
+    "Name": "Island Dash",
+    "Description": "Glass dashboard: clock, system rings, battery, network",
+    "Icon": "preferences-system-performance",
+    "Authors": [{"Name": "local"}],
+    "Version": "1.0",
+    "License": "GPL-2.0+"
+  },
+  "KPackageStructure": "Plasma/Applet",
+  "X-Plasma-API-Minimum-Version": "6.0"
+}

@@ -1,0 +1,16 @@
+#!/bin/sh
+# Switch power profile and enable low-power knobs depending on AC state.
+AC=""
+for p in /sys/class/power_supply/*; do
+  [ "$(cat "$p/type" 2>/dev/null)" = "Mains" ] && AC="$p/online" && break
+done
+[ -z "$AC" ] && exit 0
+if [ "$(cat "$AC")" = "1" ]; then
+  command -v powerprofilesctl >/dev/null && powerprofilesctl set balanced
+else
+  command -v powerprofilesctl >/dev/null && powerprofilesctl set power-saver
+  for d in /sys/bus/pci/devices/*/power/control; do echo auto > "$d" 2>/dev/null; done
+  for d in /sys/class/scsi_host/host*/link_power_management_policy; do echo med_power_with_dipm > "$d" 2>/dev/null; done
+  echo 1 > /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null
+fi
+exit 0
