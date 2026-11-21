@@ -67,9 +67,7 @@ fi
 
 # --- panels: floating pill dock + rounded top bar via Panel Colorizer ---
 DOCK="$(cat "$HERE/panels/dock.json")"; TOP="$(cat "$HERE/panels/top.json")"
-LAUNCH="applications:org.kde.dolphin.desktop"
-BR="$(xdg-settings get default-web-browser 2>/dev/null)"; [ -n "$BR" ] && LAUNCH="$LAUNCH,applications:$BR"
-LAUNCH="$LAUNCH,applications:org.kde.konsole.desktop,applications:systemsettings.desktop"
+# The dock only lists running apps (nothing pinned); apps are started from the Meta-key launcher.
 JS="
 panels().forEach(function(p){p.remove();});
 var top=new Panel(); top.location='top'; top.height=46; top.hiding='none'; top.lengthMode='fill';
@@ -80,7 +78,7 @@ var cT=top.addWidget('luisbocanegra.panel.colorizer'); cT.currentConfigGroup=['G
 cT.writeConfig('globalSettings','$TOP'); cT.writeConfig('hideWidget','true'); cT.reloadConfig();
 var dock=new Panel(); dock.location='bottom'; dock.height=64; dock.hiding='dodgewindows'; dock.alignment='center'; dock.lengthMode='fit';
 var t=dock.addWidget('org.kde.plasma.icontasks'); t.currentConfigGroup=['General'];
-t.writeConfig('launchers','$LAUNCH');
+t.writeConfig('launchers',[]); t.writeConfig('showOnlyCurrentDesktop',false); t.writeConfig('showOnlyCurrentScreen',false); t.writeConfig('showOnlyCurrentActivity',false); t.reloadConfig();
 var cD=dock.addWidget('luisbocanegra.panel.colorizer'); cD.currentConfigGroup=['General'];
 cD.writeConfig('globalSettings','$DOCK'); cD.writeConfig('hideWidget','true'); cD.reloadConfig();
 panels().forEach(function(p){p.floating=false;});

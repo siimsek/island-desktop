@@ -5,7 +5,7 @@ Koyu, mavi tonlu, cam görünümlü bir **KDE Plasma 6** masaüstü. *(English: 
 ![screenshot](docs/screenshot.png)
 
 ## İçindekiler
-- **Hap biçimli dock** (masaüstü boşken görünür, pencere önüne gelince saklanır) ve yuvarlak köşeli üst bar — [Panel Colorizer](https://github.com/luisbocanegra/plasma-panel-colorizer) ile
+- **Hap biçimli dock** (yalnızca açık uygulamaları gösterir, sabitlenmiş uygulama yok; masaüstü boşken görünür, pencere önüne gelince saklanır) ve yuvarlak köşeli üst bar — [Panel Colorizer](https://github.com/luisbocanegra/plasma-panel-colorizer) ile
 - **Tüm pencerelerde yuvarlak köşe + akrilik blur** — KWin eklentileri *Rounded Corners* ve *Better Blur DX*
 - **Island Dash**: kendi yazdığım iki sütunlu masaüstü widget'ı
   - Sol: saat/tarih, pil (kapsül + kalan süre + fare/klavye pili), kontrol (ses, parlaklık, Wi-Fi / Bluetooth / sessiz / güç modu)
