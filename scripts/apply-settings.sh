@@ -76,7 +76,7 @@ top.addWidget('org.kde.plasma.digitalclock'); top.addWidget('org.kde.plasma.pane
 var tray=top.addWidget('org.kde.plasma.systemtray'); tray.currentConfigGroup=['General']; tray.writeConfig('shownItems',['org.kde.plasma.battery']); tray.reloadConfig();  // Plasma hides the battery icon when it is full on AC; keep it visible
 var cT=top.addWidget('luisbocanegra.panel.colorizer'); cT.currentConfigGroup=['General'];
 cT.writeConfig('globalSettings','$TOP'); cT.writeConfig('hideWidget','true'); cT.reloadConfig();
-var dock=new Panel(); dock.location='bottom'; dock.height=72; dock.floating=true; dock.hiding='dodgewindows'; dock.alignment='center';
+var dock=new Panel(); dock.location='bottom'; dock.height=62; dock.floating=true; dock.hiding='dodgewindows'; dock.alignment='center';
 dock.addWidget('org.kde.plasma.panelspacer');   // spacers on both sides keep the icons centred
 var t=dock.addWidget('org.kde.plasma.icontasks'); t.currentConfigGroup=['General'];
 t.writeConfig('launchers',[]); t.writeConfig('iconSpacing',2); t.writeConfig('showOnlyCurrentDesktop',false); t.writeConfig('showOnlyCurrentScreen',false); t.writeConfig('showOnlyCurrentActivity',false); t.reloadConfig();
