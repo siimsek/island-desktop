@@ -1,0 +1,12 @@
+{
+  "KPlugin": {
+    "Id": "dock-hide-when-empty",
+    "Name": "Dock Hide When Empty",
+    "Description": "Alttaki dock paneli pencere yokken gizler, en az bir pencere acikken gosterir",
+    "Version": "1.0",
+    "Authors": [{ "Name": "siimsek" }]
+  },
+  "X-Plasma-API": "javascript",
+  "X-Plasma-MainScript": "code/main.js",
+  "KPackageStructure": "KWin/Script"
+}

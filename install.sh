@@ -141,6 +141,9 @@ cp -r "$HERE/plasmoid/org.local.islanddash" ~/.local/share/plasma/plasmoids/
 cp -r "$HERE/plasma/desktoptheme/Island2" ~/.local/share/plasma/desktoptheme/
 cp "$HERE"/konsole/*.colorscheme ~/.local/share/konsole/
 cp "$HERE"/wallpapers/*.svg ~/Pictures/Wallpapers/
+mkdir -p ~/.local/share/kwin/scripts && rm -rf ~/.local/share/kwin/scripts/dock-hide-when-empty
+cp -r "$HERE/kwin-scripts/dock-hide-when-empty" ~/.local/share/kwin/scripts/
+kwriteconfig6 --file kwinrc --group Plugins --key dock-hide-when-emptyEnabled true 2>/dev/null || warn "could not enable the dock-hide-when-empty KWin script"
 
 if [ "$POWER" = 1 ]; then
   say "Power tweaks (AC/battery)"
