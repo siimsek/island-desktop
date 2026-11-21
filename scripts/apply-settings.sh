@@ -73,7 +73,7 @@ panels().forEach(function(p){p.remove();});
 var top=new Panel(); top.location='top'; top.height=46; top.hiding='none'; top.lengthMode='fill';
 top.addWidget('org.kde.plasma.kickoff'); top.addWidget('org.kde.plasma.panelspacer');
 top.addWidget('org.kde.plasma.digitalclock'); top.addWidget('org.kde.plasma.panelspacer');
-top.addWidget('org.kde.plasma.systemtray');
+var tray=top.addWidget('org.kde.plasma.systemtray'); tray.currentConfigGroup=['General']; tray.writeConfig('shownItems',['org.kde.plasma.battery']); tray.reloadConfig();  // Plasma hides the battery icon when it is full on AC; keep it visible
 var cT=top.addWidget('luisbocanegra.panel.colorizer'); cT.currentConfigGroup=['General'];
 cT.writeConfig('globalSettings','$TOP'); cT.writeConfig('hideWidget','true'); cT.reloadConfig();
 var dock=new Panel(); dock.location='bottom'; dock.height=64; dock.floating=true; dock.hiding='dodgewindows'; dock.alignment='center';
