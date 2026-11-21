@@ -76,17 +76,17 @@ top.addWidget('org.kde.plasma.digitalclock'); top.addWidget('org.kde.plasma.pane
 top.addWidget('org.kde.plasma.systemtray');
 var cT=top.addWidget('luisbocanegra.panel.colorizer'); cT.currentConfigGroup=['General'];
 cT.writeConfig('globalSettings','$TOP'); cT.writeConfig('hideWidget','true'); cT.reloadConfig();
-var dock=new Panel(); dock.location='bottom'; dock.height=64; dock.hiding='dodgewindows'; dock.alignment='center';
+var dock=new Panel(); dock.location='bottom'; dock.height=64; dock.floating=true; dock.hiding='dodgewindows'; dock.alignment='center';
 dock.addWidget('org.kde.plasma.panelspacer');   // spacers on both sides keep the icons centred
 var t=dock.addWidget('org.kde.plasma.icontasks'); t.currentConfigGroup=['General'];
 t.writeConfig('launchers',[]); t.writeConfig('showOnlyCurrentDesktop',false); t.writeConfig('showOnlyCurrentScreen',false); t.writeConfig('showOnlyCurrentActivity',false); t.reloadConfig();
 dock.addWidget('org.kde.plasma.panelspacer');
 var cD=dock.addWidget('luisbocanegra.panel.colorizer'); cD.currentConfigGroup=['General'];
 cD.writeConfig('globalSettings','$DOCK'); cD.writeConfig('hideWidget','true'); cD.reloadConfig();
-// The panel is a wide, invisible hit area (auto-hide trigger zone, >= 2x the pill even with ~9 apps);
+// The panel is a wide, invisible hit area (auto-hide trigger zone, >= 2x the pill up to ~4 apps);
 // the visible pill is drawn by Panel Colorizer around the task icons only, so it stays as narrow as the apps.
-dock.lengthMode='custom'; dock.minimumLength=1000; dock.maximumLength=1000;
-panels().forEach(function(p){p.floating=false;});
+dock.lengthMode='custom'; dock.minimumLength=480; dock.maximumLength=480;
+top.floating=false;   // only the top bar is docked flush; the dock above floats
 var d=desktops()[0];
 d.widgetIds.forEach(function(i){var w=d.widgetById(i); if(w.type!='org.kde.plasma.folder') w.remove();});
 var sw=(typeof screenGeometry=='function')?screenGeometry(d.screen).width:1920;
