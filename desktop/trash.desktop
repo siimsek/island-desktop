@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Link
+Name=Geri Dönüşüm Kutusu
+Name[en_US]=Trash
+Icon=user-trash
+URL=trash:/

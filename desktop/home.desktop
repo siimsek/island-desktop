@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Link
+Name=Ev
+Name[en_US]=Home
+Icon=user-home
+URL=file://@HOME@

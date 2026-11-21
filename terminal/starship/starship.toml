@@ -1,0 +1,89 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Tema: Catppuccin Mocha (Osiloskop düzeni) — koyu ekran, faz izi camgöbeği, bakır ve amber LED vurgular
+palette = "catppuccin_mocha"
+add_newline = true
+
+format = """
+[╭─](frame)$username$directory$git_branch$git_status$python$c$rust$golang$nodejs$java$conda
+[╰─](frame)$character"""
+
+right_format = "$cmd_duration$time"
+
+[palettes.catppuccin_mocha]
+frame  = "#45475a"
+dim    = "#7f849c"
+trace  = "#74c7ec"   # sapphire
+copper = "#89b4fa"   # blue
+amber  = "#f9e2af"   # yellow
+led    = "#a6e3a1"   # green
+fault  = "#f38ba8"   # red
+
+[username]
+show_always = true
+style_user = "bold copper"
+style_root = "bold fault"
+format = "[󰘚 $user]($style)[ ⌁ ](dim)"
+
+[directory]
+style = "bold trace"
+read_only = " 󰌾"
+read_only_style = "fault"
+truncation_length = 4
+truncation_symbol = "…/"
+format = "[$path]($style)[$read_only]($read_only_style)"
+
+[git_branch]
+symbol = " "
+style = "amber"
+format = "[ │ ](frame)[$symbol$branch]($style)"
+
+[git_status]
+style = "amber"
+format = "[ $all_status$ahead_behind]($style)"
+
+[python]
+symbol = " "
+style = "led"
+format = "[ │ ](frame)[$symbol$version(\\($virtualenv\\))]($style)"
+
+[c]
+style = "led"
+format = "[ │ ](frame)[C $version]($style)"
+
+[rust]
+style = "led"
+format = "[ │ ](frame)[rs $version]($style)"
+
+[golang]
+style = "led"
+format = "[ │ ](frame)[go $version]($style)"
+
+[nodejs]
+style = "led"
+format = "[ │ ](frame)[js $version]($style)"
+
+[java]
+style = "led"
+format = "[ │ ](frame)[java $version]($style)"
+
+[conda]
+style = "led"
+ignore_base = true
+format = "[ │ ](frame)[conda:$environment]($style)"
+
+[cmd_duration]
+min_time = 2000
+style = "dim"
+format = "[󰥛 $duration  ]($style)"
+
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "dim"
+format = "[ $time]($style)"
+
+[character]
+success_symbol = "[󱐋](bold led)"
+error_symbol = "[󱐋](bold fault)"
+vimcmd_symbol = "[❮](bold trace)"

@@ -10,6 +10,8 @@ Koyu, mavi tonlu, cam görünümlü bir **KDE Plasma 6** masaüstü. *(English: 
 - **Island Dash**: kendi yazdığım iki sütunlu masaüstü widget'ı
   - Sol: saat/tarih, pil (kapsül + kalan süre + fare/klavye pili), kontrol (ses, parlaklık, Wi-Fi / Bluetooth / sessiz / güç modu)
   - Sağ: **Sistem** kartı — CPU/GPU geçmiş grafiği, işlemci/ekran kartı/bellek/depolama kutuları (sıcaklık, GHz, VRAM, GB), GPU gücü, swap, disk G/Ç ve renk bölgeli **sıcaklık skalası**
+- **Masaüstü düzeni:** Island Dash **sağda**, masaüstü simgeleri (Çöp Kutusu, Ev) her zamanki gibi **solda** — çoğu kullanıcının alışkanlığı bu
+- **Terminal:** Alacritty (Catppuccin Mocha renkleri, JetBrainsMono Nerd Font) ve Starship istemi (Catppuccin Mocha Blue paleti)
 - Catppuccin Mocha Blue renkleri, Kvantum stili, Tela Circle uygulama ikonları, iOS tarzı durum ikonları (`IslandIcons`), Inter + JetBrains Mono fontları
 - İsteğe bağlı **pil/AC güç profili** otomasyonu (`--power`)
 
@@ -25,10 +27,11 @@ cd island-desktop
 ./install.sh --power         # + pil/AC güç ayarları (dizüstü, sudo ister)
 ./install.sh --skip-effects  # KWin efektlerini derleme
 ./install.sh --no-apply      # dosyaları kur ama panellerine/ayarlarına dokunma
+./install.sh --no-terminal   # kendi Alacritty / Starship ayarlarını koru
 ```
 Bittiğinde **oturumu kapatıp açın**. Başarısız olan adımlar sonda listelenir; betik tek bir hatada durmaz.
 
-> **Dikkat:** `apply-settings.sh` mevcut panellerini **siler** ve yenilerini kurar (üst bar + dock) ve masaüstündeki widget'ları kaldırıp Island Dash'i ekler. Önce yedek almak istersen `--no-apply` kullan.
+> **Dikkat:** `apply-settings.sh` mevcut panellerini **siler** ve yenilerini kurar (üst bar + dock) ve masaüstündeki widget'ları kaldırıp Island Dash'i ekler. Önce yedek almak istersen `--no-apply` kullan. Alacritty ve Starship dosyaların değiştirilmeden önce `*.bak-<tarih>` olarak yedeklenir; istemezsen `--no-terminal`.
 
 Kaldırmak için: `./uninstall.sh` (güç ayarları için `./uninstall.sh --power`).
 
@@ -42,6 +45,8 @@ Kaldırmak için: `./uninstall.sh` (güç ayarları için `./uninstall.sh --powe
 | `plasma/desktoptheme/Island2/` | Dock'taki aktif uygulama çerçevesini kaldıran Plasma teması |
 | `panels/*.json` | Panel Colorizer ayarları (dock, üst bar) |
 | `power/` | AC/pil betiği, udev kuralı, Wi-Fi güç tasarrufu |
+| `desktop/` | Masaüstüne konan Çöp Kutusu ve Ev kısayolları |
+| `terminal/alacritty/`, `terminal/starship/` | Alacritty ve Starship yapılandırması |
 | `konsole/`, `wallpapers/`, `kvantum/` | Konsole renkleri, duvar kağıdı, Kvantum cam ayarı |
 
 ## Bilinen kısıtlar (dürüst notlar)

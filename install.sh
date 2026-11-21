@@ -4,10 +4,11 @@
 #   ./install.sh --power         also install the AC/battery profile switcher (laptops, needs sudo)
 #   ./install.sh --skip-effects  do not build the KWin effects (rounded corners / Better Blur)
 #   ./install.sh --no-apply      install files but do not touch your panels/settings
+#   ./install.sh --no-terminal   keep your own Alacritty / Starship config
 set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 POWER=0; EFFECTS=1; APPLY=1
-for a in "$@"; do case "$a" in --power) POWER=1;; --skip-effects) EFFECTS=0;; --no-apply) APPLY=0;; -h|--help) sed -n 2,7p "$0"; exit 0;; esac; done
+for a in "$@"; do case "$a" in --power) POWER=1;; --skip-effects) EFFECTS=0;; --no-apply) APPLY=0;; --no-terminal) export ISLAND_TERMINAL=0;; -h|--help) sed -n 2,8p "$0"; exit 0;; esac; done
 
 say()  { printf '\n\033[1;36m==> %s\033[0m\n' "$*"; }
 warn() { printf '\033[1;33m  ! %s\033[0m\n' "$*"; FAILED+=("$*"); }

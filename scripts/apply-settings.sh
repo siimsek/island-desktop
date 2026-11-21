@@ -48,7 +48,22 @@ if [ -f "$HOME/.config/Kvantum/catppuccin-mocha-blue/catppuccin-mocha-blue.kvcon
   sed -i 's/^translucent_windows=.*/translucent_windows=true/; s/^blurring=.*/blurring=true/; s/^reduce_window_opacity=.*/reduce_window_opacity=22/' \
     "$HOME/.config/Kvantum/catppuccin-mocha-blue/catppuccin-mocha-blue.kvconfig"
 fi
-[ -f ~/.config/alacritty/alacritty.toml ] && sed -i 's/^opacity = .*/opacity = 0.80/' ~/.config/alacritty/alacritty.toml
+
+# --- desktop icons: Trash + Home on the left (the dashboard widget lives on the right) ---
+mkdir -p "$HOME/Desktop"
+for f in "$HERE"/desktop/*.desktop; do
+  sed "s|@HOME@|$HOME|" "$f" > "$HOME/Desktop/$(basename "$f")"; chmod +x "$HOME/Desktop/$(basename "$f")"
+done
+
+# --- terminal: Alacritty colours/font + Starship prompt (Catppuccin Mocha Blue). Existing files are backed up. ---
+if [ "${ISLAND_TERMINAL:-1}" = 1 ]; then
+  TS="$(date +%Y%m%d-%H%M%S)"
+  mkdir -p ~/.config/alacritty
+  [ -f ~/.config/alacritty/alacritty.toml ] && cp ~/.config/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml.bak-$TS
+  cp "$HERE/terminal/alacritty/alacritty.toml" ~/.config/alacritty/alacritty.toml
+  [ -f ~/.config/starship.toml ] && cp ~/.config/starship.toml ~/.config/starship.toml.bak-$TS
+  cp "$HERE/terminal/starship/starship.toml" ~/.config/starship.toml
+fi
 
 # --- panels: floating pill dock + rounded top bar via Panel Colorizer ---
 DOCK="$(cat "$HERE/panels/dock.json")"; TOP="$(cat "$HERE/panels/top.json")"
@@ -71,7 +86,9 @@ cD.writeConfig('globalSettings','$DOCK'); cD.writeConfig('hideWidget','true'); c
 panels().forEach(function(p){p.floating=false;});
 var d=desktops()[0];
 d.widgetIds.forEach(function(i){var w=d.widgetById(i); if(w.type!='org.kde.plasma.folder') w.remove();});
-var w=d.addWidget('org.local.islanddash',64,70,772,700); w.userBackgroundHints='NoBackground';
+var sw=(typeof screenGeometry=='function')?screenGeometry(d.screen).width:1920;
+var w=d.addWidget('org.local.islanddash',Math.max(64,sw-772-64),70,772,700); w.userBackgroundHints='NoBackground';
+d.currentConfigGroup=['General']; d.writeConfig('alignment',0); d.reloadConfig();
 "
 $QD org.kde.plasmashell /PlasmaShell evaluateScript "$JS" >/dev/null 2>&1 || echo "! panel script failed (is plasmashell running?)"
 echo "Done. Log out and back in to finish applying everything."
