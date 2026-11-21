@@ -72,26 +72,31 @@ else
     && unzip -oq "$TMP/cur.zip" -d "$ICONS" || warn "cursor theme download failed"
 fi
 
-say "Icons: Tela Circle (apps) + WhiteSur status icons -> IslandIcons"
-if [ ! -d "$ICONS/Tela-circle-blue-dark" ] && [ ! -d /usr/share/icons/Tela-circle-blue-dark ]; then
-  if [ "$PM" = pacman ]; then pm_install tela-circle-icon-theme-blue
-  else git clone -q --depth=1 https://github.com/vinceliuice/Tela-circle-icon-theme.git "$TMP/tela" && ( cd "$TMP/tela" && ./install.sh blue >/dev/null ) || warn "Tela Circle install failed"; fi
-fi
+say "Icons: WhiteSur app icons + status icons -> IslandIcons (Papirus-Dark fills gaps)"
+pm_install papirus-icon-theme
 I="$ICONS/IslandIcons"
 if git clone -q --depth=1 https://github.com/vinceliuice/WhiteSur-icon-theme.git "$TMP/ws"; then
+  # WhiteSur base theme (squircle app icons). Plain file copies, same set as its own installer; its script is never run.
+  W="$ICONS/WhiteSur"; rm -rf "$W"; mkdir -p "$W/status"
+  cp "$TMP/ws/src/index.theme" "$W/"
+  cp -r "$TMP/ws"/src/{actions,animations,apps,categories,devices,emotes,emblems,mimes,places,preferences} "$W/"
+  cp -r "$TMP/ws"/src/status/{16,22,24,32,symbolic} "$W/status/"
+  cp -r "$TMP/ws"/links/{actions,apps,categories,devices,emotes,emblems,mimes,places,status,preferences} "$W/"
+  rm -f "$W"/places/scalable/user-trash{,-full}-dark.svg
+  gtk-update-icon-cache -f "$W" >/dev/null 2>&1 || true
   rm -rf "$I"; mkdir -p "$I"
   # same file set WhiteSur's own installer copies for its default (light-on-dark) variant, without running its script
   cp -a "$TMP/ws/src/status" "$TMP/ws/src/devices" "$I/"
   for c in status devices; do for s in 16 22 24 32; do [ -d "$TMP/ws/links/$c/$s" ] && cp -a "$TMP/ws/links/$c/$s/." "$I/$c/$s/"; done; done
   DIRS="status/symbolic devices/symbolic status/16 status/22 status/24 status/32 devices/16 devices/22 devices/24 devices/32"
-  { printf '[Icon Theme]\nName=IslandIcons\nComment=WhiteSur status icons over Tela Circle\nInherits=Tela-circle-blue-dark,hicolor\nDirectories=%s\n\n' "${DIRS// /,}"
+  { printf '[Icon Theme]\nName=IslandIcons\nComment=WhiteSur app icons with iOS-style status icons\nInherits=WhiteSur,Papirus-Dark,hicolor\nDirectories=%s\n\n' "${DIRS// /,}"
     for d in $DIRS; do
       c=Status; [[ $d == devices* ]] && c=Devices
       if [[ $d == */symbolic ]]; then printf '[%s]\nSize=16\nContext=%s\nMinSize=16\nMaxSize=512\nType=Scalable\n\n' "$d" "$c"
       else printf '[%s]\nSize=%s\nContext=%s\nType=Fixed\n\n' "$d" "${d##*/}" "$c"; fi
     done; } > "$I/index.theme"
   gtk-update-icon-cache -f "$I" >/dev/null 2>&1 || true
-else warn "WhiteSur icon download failed (status icons will fall back to Tela/Breeze)"; fi
+else warn "WhiteSur icon download failed (app and status icons will fall back to Papirus/Breeze)"; fi
 
 say "Panel Colorizer plasmoid"
 if ! kpackagetool6 --type Plasma/Applet --list 2>/dev/null | grep -q panel.colorizer && [ ! -d /usr/share/plasma/plasmoids/luisbocanegra.panel.colorizer ]; then

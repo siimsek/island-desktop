@@ -12,7 +12,7 @@ Koyu, mavi tonlu, cam görünümlü bir **KDE Plasma 6** masaüstü. *(English: 
   - Sağ: **Sistem** kartı — CPU/GPU geçmiş grafiği, işlemci/ekran kartı/bellek/depolama kutuları (sıcaklık, GHz, VRAM, GB), GPU gücü, swap, disk G/Ç ve renk bölgeli **sıcaklık skalası**
 - **Masaüstü düzeni:** Island Dash **sağda**, masaüstü simgeleri (Çöp Kutusu, Ev) her zamanki gibi **solda** — çoğu kullanıcının alışkanlığı bu
 - **Terminal:** Alacritty (Catppuccin Mocha renkleri, JetBrainsMono Nerd Font) ve Starship istemi (Catppuccin Mocha Blue paleti)
-- Catppuccin Mocha Blue renkleri, Kvantum stili, Tela Circle uygulama ikonları, iOS tarzı durum ikonları (`IslandIcons`), Inter + JetBrains Mono fontları
+- Catppuccin Mocha Blue renkleri, Kvantum stili, WhiteSur (macOS tarzı yumuşak kare) uygulama ve iOS tarzı durum ikonları, Papirus-Dark yedeği (`IslandIcons`), Inter + JetBrains Mono fontları
 - İsteğe bağlı **pil/AC güç profili** otomasyonu (`--power`)
 
 ## Gereksinimler
@@ -70,4 +70,4 @@ Kaldırmak için: `./uninstall.sh` (güç ayarları için `./uninstall.sh --powe
 Repo kişisel veri, şifre veya anahtar içermez. `install.sh` yalnızca bu README'deki GitHub depolarından ve dağıtımınızın paket depolarından indirir.
 
 ## Lisans
-Kendi dosyalarım MIT. İndirilen temalar/eklentiler kendi lisanslarına tabidir (Catppuccin: MIT, WhiteSur/Tela: GPL-3.0, Panel Colorizer: GPL-3.0, KDE-Rounded-Corners: GPL-3.0, Better Blur DX: GPL-3.0).
+Kendi dosyalarım MIT. İndirilen temalar/eklentiler kendi lisanslarına tabidir (Catppuccin: MIT, WhiteSur: GPL-3.0, Panel Colorizer: GPL-3.0, KDE-Rounded-Corners: GPL-3.0, Better Blur DX: GPL-3.0).

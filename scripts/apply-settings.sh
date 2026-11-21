@@ -79,7 +79,7 @@ cT.writeConfig('globalSettings','$TOP'); cT.writeConfig('hideWidget','true'); cT
 var dock=new Panel(); dock.location='bottom'; dock.height=64; dock.floating=true; dock.hiding='dodgewindows'; dock.alignment='center';
 dock.addWidget('org.kde.plasma.panelspacer');   // spacers on both sides keep the icons centred
 var t=dock.addWidget('org.kde.plasma.icontasks'); t.currentConfigGroup=['General'];
-t.writeConfig('launchers',[]); t.writeConfig('showOnlyCurrentDesktop',false); t.writeConfig('showOnlyCurrentScreen',false); t.writeConfig('showOnlyCurrentActivity',false); t.reloadConfig();
+t.writeConfig('launchers',[]); t.writeConfig('iconSpacing',3); t.writeConfig('showOnlyCurrentDesktop',false); t.writeConfig('showOnlyCurrentScreen',false); t.writeConfig('showOnlyCurrentActivity',false); t.reloadConfig();
 dock.addWidget('org.kde.plasma.panelspacer');
 var cD=dock.addWidget('luisbocanegra.panel.colorizer'); cD.currentConfigGroup=['General'];
 cD.writeConfig('globalSettings','$DOCK'); cD.writeConfig('hideWidget','true'); cD.reloadConfig();
