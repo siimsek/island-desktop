@@ -84,12 +84,39 @@ if git clone -q --depth=1 https://github.com/vinceliuice/WhiteSur-icon-theme.git
   cp -r "$TMP/ws"/links/{actions,apps,categories,devices,emotes,emblems,mimes,places,status,preferences} "$W/"
   rm -f "$W"/places/scalable/user-trash{,-full}-dark.svg
   gtk-update-icon-cache -f "$W" >/dev/null 2>&1 || true
+  # WhiteSur-dark: same glyphs recoloured light (#363636 -> #dedede) so menu / category / action icons stay readable on a dark UI
+  Dk="$ICONS/WhiteSur-dark"; rm -rf "$Dk"; mkdir -p "$Dk"/{apps,categories,emblems,devices,mimes,places,status}
+  cp "$TMP/ws/src/index.theme" "$Dk/"; sed -i "s/WhiteSur/WhiteSur-dark/g" "$Dk/index.theme"
+  cp -r "$TMP/ws/src/actions" "$Dk"
+  cp -r "$TMP/ws"/src/apps/{16,22,32,symbolic} "$Dk/apps"
+  cp -r "$TMP/ws"/src/categories/{22,symbolic} "$Dk/categories"
+  cp -r "$TMP/ws/src/emblems/symbolic" "$Dk/emblems"; cp -r "$TMP/ws/src/mimes/symbolic" "$Dk/mimes"
+  cp -r "$TMP/ws"/src/devices/{16,22,24,32,symbolic} "$Dk/devices"
+  cp -r "$TMP/ws"/src/places/{16,22,24,scalable,symbolic} "$Dk/places"
+  cp -r "$TMP/ws/src/status/symbolic" "$Dk/status"
+  mv -f "$Dk/places/scalable/user-trash-dark.svg" "$Dk/places/scalable/user-trash.svg"
+  mv -f "$Dk/places/scalable/user-trash-full-dark.svg" "$Dk/places/scalable/user-trash-full.svg"
+  sed -i "s/#363636/#dedede/g" "$Dk"/{actions,devices,places}/{16,22,24}/*.svg "$Dk"/apps/{16,22,32}/*.svg "$Dk"/categories/22/*.svg "$Dk"/{actions,devices}/32/*.svg
+  sed -i "s/#363636/#dedede/g" "$Dk"/{actions,apps,categories,emblems,devices,mimes,places,status}/symbolic/*.svg
+  cp -r "$TMP/ws"/links/actions/{16,22,24,32,symbolic} "$Dk/actions"; cp -r "$TMP/ws"/links/devices/{16,22,24,32,symbolic} "$Dk/devices"
+  cp -r "$TMP/ws"/links/places/{16,22,24,scalable,symbolic} "$Dk/places"; cp -r "$TMP/ws"/links/apps/{16,22,32,symbolic} "$Dk/apps"
+  cp -r "$TMP/ws"/links/categories/{22,symbolic} "$Dk/categories"; cp -r "$TMP/ws/links/emblems/symbolic" "$Dk/emblems"
+  cp -r "$TMP/ws/links/mimes/symbolic" "$Dk/mimes"; cp -r "$TMP/ws/links/status/symbolic" "$Dk/status"
+  ( cd "$Dk"
+    for x in animations emotes preferences; do ln -sfn ../WhiteSur/$x $x; done
+    ln -sfn ../../WhiteSur/categories/32 categories/32
+    for z in 16 22 24; do ln -sfn ../../WhiteSur/emblems/$z emblems/$z; ln -sfn ../../WhiteSur/status/$z status/$z; done
+    ln -sfn ../../WhiteSur/status/32 status/32
+    for z in 16 22; do ln -sfn ../../WhiteSur/mimes/$z mimes/$z; done
+    ln -sfn ../../WhiteSur/mimes/scalable mimes/scalable; ln -sfn ../../WhiteSur/apps/scalable apps/scalable; ln -sfn ../../WhiteSur/devices/scalable devices/scalable
+    for c in actions animations apps categories devices emotes emblems mimes places preferences status; do ln -sfn $c $c@2x; done )
+  gtk-update-icon-cache -f "$Dk" >/dev/null 2>&1 || true
   rm -rf "$I"; mkdir -p "$I"
   # same file set WhiteSur's own installer copies for its default (light-on-dark) variant, without running its script
   cp -a "$TMP/ws/src/status" "$TMP/ws/src/devices" "$I/"
   for c in status devices; do for s in 16 22 24 32; do [ -d "$TMP/ws/links/$c/$s" ] && cp -a "$TMP/ws/links/$c/$s/." "$I/$c/$s/"; done; done
   DIRS="status/symbolic devices/symbolic status/16 status/22 status/24 status/32 devices/16 devices/22 devices/24 devices/32"
-  { printf '[Icon Theme]\nName=IslandIcons\nComment=WhiteSur app icons with iOS-style status icons\nInherits=WhiteSur,Papirus-Dark,hicolor\nDirectories=%s\n\n' "${DIRS// /,}"
+  { printf '[Icon Theme]\nName=IslandIcons\nComment=WhiteSur app icons with iOS-style status icons\nInherits=WhiteSur-dark,WhiteSur,Papirus-Dark,hicolor\nDirectories=%s\n\n' "${DIRS// /,}"
     for d in $DIRS; do
       c=Status; [[ $d == devices* ]] && c=Devices
       if [[ $d == */symbolic ]]; then printf '[%s]\nSize=16\nContext=%s\nMinSize=16\nMaxSize=512\nType=Scalable\n\n' "$d" "$c"
