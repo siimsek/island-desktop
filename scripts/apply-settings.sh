@@ -76,11 +76,15 @@ top.addWidget('org.kde.plasma.digitalclock'); top.addWidget('org.kde.plasma.pane
 top.addWidget('org.kde.plasma.systemtray');
 var cT=top.addWidget('luisbocanegra.panel.colorizer'); cT.currentConfigGroup=['General'];
 cT.writeConfig('globalSettings','$TOP'); cT.writeConfig('hideWidget','true'); cT.reloadConfig();
-var dock=new Panel(); dock.location='bottom'; dock.height=64; dock.hiding='dodgewindows'; dock.alignment='center'; dock.lengthMode='fit';
+var dock=new Panel(); dock.location='bottom'; dock.height=64; dock.hiding='dodgewindows'; dock.alignment='center';
+dock.addWidget('org.kde.plasma.panelspacer');   // spacers on both sides keep the icons centred
 var t=dock.addWidget('org.kde.plasma.icontasks'); t.currentConfigGroup=['General'];
 t.writeConfig('launchers',[]); t.writeConfig('showOnlyCurrentDesktop',false); t.writeConfig('showOnlyCurrentScreen',false); t.writeConfig('showOnlyCurrentActivity',false); t.reloadConfig();
+dock.addWidget('org.kde.plasma.panelspacer');
 var cD=dock.addWidget('luisbocanegra.panel.colorizer'); cD.currentConfigGroup=['General'];
 cD.writeConfig('globalSettings','$DOCK'); cD.writeConfig('hideWidget','true'); cD.reloadConfig();
+// fixed-width pill: 2x the old 3-icon width, which also widens the auto-hide trigger zone
+dock.lengthMode='custom'; dock.minimumLength=340; dock.maximumLength=340;
 panels().forEach(function(p){p.floating=false;});
 var d=desktops()[0];
 d.widgetIds.forEach(function(i){var w=d.widgetById(i); if(w.type!='org.kde.plasma.folder') w.remove();});
