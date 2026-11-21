@@ -83,8 +83,9 @@ t.writeConfig('launchers',[]); t.writeConfig('showOnlyCurrentDesktop',false); t.
 dock.addWidget('org.kde.plasma.panelspacer');
 var cD=dock.addWidget('luisbocanegra.panel.colorizer'); cD.currentConfigGroup=['General'];
 cD.writeConfig('globalSettings','$DOCK'); cD.writeConfig('hideWidget','true'); cD.reloadConfig();
-// fixed-width pill: 2x the old 3-icon width, which also widens the auto-hide trigger zone
-dock.lengthMode='custom'; dock.minimumLength=340; dock.maximumLength=340;
+// The panel is a wide, invisible hit area (auto-hide trigger zone, >= 2x the pill even with ~9 apps);
+// the visible pill is drawn by Panel Colorizer around the task icons only, so it stays as narrow as the apps.
+dock.lengthMode='custom'; dock.minimumLength=1000; dock.maximumLength=1000;
 panels().forEach(function(p){p.floating=false;});
 var d=desktops()[0];
 d.widgetIds.forEach(function(i){var w=d.widgetById(i); if(w.type!='org.kde.plasma.folder') w.remove();});
