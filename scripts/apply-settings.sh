@@ -34,7 +34,7 @@ $KW --file kwinrc --group Plugins --key better_blur_dxEnabled true
 $KW --file kwinrc --group Plugins --key kwin4_effect_shapecornersEnabled true
 $KW --file kwinrc --group Effect-kwin4_effect_shapecorners --key Size 16
 G=Effect-better-blur-dx   # NOTE: hyphens, not underscores
-for kv in "WindowClasses:" "BlurMatching:false" "BlurNonMatching:true" "BlurDecorations:true" "BlurMenus:true" "BlurDocks:true" \
+for kv in "WindowClasses:" "BlurMatching:false" "BlurNonMatching:true" "BlurDecorations:true" "BlurMenus:true" "BlurDocks:false" \
           "BlurStrength:12" "NoiseStrength:3" "Saturation:130" "Brightness:100" "Contrast:100" "CornerRadius:16"; do
   $KW --file kwinrc --group $G --key "${kv%%:*}" "${kv#*:}"
 done
